@@ -14,14 +14,24 @@ GitHub integration for repository event tracking and automation.
 
 ## Configuration
 
-Add to `am.toml`:
+The plugin is its record on the node ([QNTX ADR-002](https://github.com/teranos/QNTX/blob/main/docs/adr/ADR-002-plugin-configuration.md)): `plugins_add` this repository's URL, then `PUT /api/plugins/github/config` with the plugin's keys:
 
-```toml
-[github]
-token = "ghp_..."  # GitHub personal access token
-repos = ["teranos/qntx"]  # Repositories to watch
-poll_interval = 300  # Poll interval in seconds (default: 5 minutes)
-```
+| Key | |
+|---|---|
+| `token` | GitHub personal access token |
+| `repos` | Repositories to watch, `owner/repo` |
+| `poll_interval` | Seconds between polls; 300 when unset |
+
+and QNTX's `build.*` keys, so the node builds it from this repository:
+
+| Key | Value |
+|---|---|
+| `build.core` | `github.com/teranos/qntx-github@main` |
+| `build.packages` | `go` |
+| `build.command` | `CGO_ENABLED=0 go build -o bin/qntx-github-plugin ./cmd/qntx-github-plugin` |
+| `build.output` | `bin/qntx-github-plugin` |
+
+ADR-002 names a plugin after the last segment of its repository URL. This repository is `qntx-github` and the plugin's `Metadata().Name` is `github`.
 
 ## Event Attestations
 
@@ -65,14 +75,14 @@ Compose with other plugins (e.g., post to Bluesky via qntx-atproto) using ax-py 
 
 ## Building & Installation
 
+This is its own Go module, `github.com/teranos/qntx-github`, requiring `github.com/teranos/QNTX` (see `go.mod`). It is pure Go: QNTX's cgo storage is the node's, not the plugin's, so it builds with `CGO_ENABLED=0`.
+
 ```bash
-# Build
-cd qntx-github
+# Build bin/qntx-github-plugin
 make build
 
 # Install to ~/.qntx/plugins/
 make install
-
-# Or use Nix
-nix build ./qntx-github#qntx-github-plugin
 ```
+
+`flake.nix` pins the nixpkgs the node builds with (`nix shell --inputs-from <this repo> nixpkgs#go`, ADR-002) and gives `nix develop` a shell with go and make.
