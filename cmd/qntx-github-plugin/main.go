@@ -8,7 +8,7 @@ package main
 
 import (
 	plugingrpc "github.com/teranos/QNTX/plugin/grpc"
-	qntxgithub "github.com/teranos/qntx-github"
+	qntxgithub "github.com/teranos/github"
 )
 
 func main() {

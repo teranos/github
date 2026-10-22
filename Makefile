@@ -2,7 +2,7 @@
 
 PREFIX ?= $(HOME)/.qntx
 
-# qntx-github is pure Go; QNTX's cgo storage is the node's, not the plugin's.
+# github is pure Go; QNTX's cgo storage is the node's, not the plugin's.
 export CGO_ENABLED = 0
 
 build: ## Build GitHub plugin binary

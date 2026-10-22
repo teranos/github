@@ -1,5 +1,5 @@
 {
-  description = "qntx-github: GitHub integration for repository events, a QNTX plugin";
+  description = "github: GitHub integration for repository events, a QNTX plugin";
 
   # The node builds this plugin in `nix shell --inputs-from <this repo> nixpkgs#go`
   # (QNTX ADR-002), so this pin is the nixpkgs the build runs with. It is QNTX's own.

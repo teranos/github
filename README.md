@@ -26,12 +26,12 @@ and QNTX's `build.*` keys, so the node builds it from this repository:
 
 | Key | Value |
 |---|---|
-| `build.core` | `github.com/teranos/qntx-github@main` |
+| `build.core` | `github.com/teranos/github@main` |
 | `build.packages` | `go` |
 | `build.command` | `CGO_ENABLED=0 go build -o bin/qntx-github-plugin ./cmd/qntx-github-plugin` |
 | `build.output` | `bin/qntx-github-plugin` |
 
-ADR-002 names a plugin after the last segment of its repository URL. This repository is `qntx-github` and the plugin's `Metadata().Name` is `github`.
+ADR-002 names a plugin after the last segment of its repository URL: this repository is `github`, and so is the plugin's `Metadata().Name`.
 
 ## Event Attestations
 
@@ -75,7 +75,7 @@ Compose with other plugins (e.g., post to Bluesky via qntx-atproto) using ax-py 
 
 ## Building & Installation
 
-This is its own Go module, `github.com/teranos/qntx-github`, requiring `github.com/teranos/QNTX` (see `go.mod`). It is pure Go: QNTX's cgo storage is the node's, not the plugin's, so it builds with `CGO_ENABLED=0`.
+This is its own Go module, `github.com/teranos/github`, requiring `github.com/teranos/QNTX` (see `go.mod`). It is pure Go: QNTX's cgo storage is the node's, not the plugin's, so it builds with `CGO_ENABLED=0`.
 
 ```bash
 # Build bin/qntx-github-plugin

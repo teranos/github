@@ -1,4 +1,4 @@
-module github.com/teranos/qntx-github
+module github.com/teranos/github
 
 go 1.25.0
 
